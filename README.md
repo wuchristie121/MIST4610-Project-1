@@ -1,1 +1,27 @@
 # MIST4610-Project-1
+
+**Team name:** Group 5
+
+**Team Members:**
+  Whitt Bowles
+  Braxton Bray
+  Benjamin Gatchel
+  Jason Tong
+  Christie Wu
+
+**Scenario Description**
+Retail businesses generate large amounts of data across sales, inventory, customers, employees, and suppliers. Without a centralized system, managers struggle to track performance, monitor inventory, and make timely, data-driven decisions.
+To solve this, we created a Retail Store Database that consolidates all critical operational data into one integrated system. The database captures information on products, stores, employees, customers, suppliers, orders, payments, and promotions.
+With this system, managers can easily analyze sales performance, identify low inventory levels, evaluate employee productivity, assess supplier reliability, and measure the effectiveness of marketing promotions. Overall, the database provides a reliable tool for improving decision-making, operational efficiency, and profitability.
+
+**Data Model**
+Our data model is based on the structure of a hypothetical retail business that manages multiple store locations, employees, products, suppliers, customers, and transactions. The Store entity represents each physical retail location within the company. Each store has identifying information such as its name, location, phone number, and the employee who serves as the manager. Because a company can operate several stores, and each store employs multiple individuals, there is a one-to-many relationship between Store and Employee. Each store can have multiple employees, but each employee can only work at one store. 
+Within the Employee entity, there is a recursive relationship through the managerID and supervisorID fields. This shows that employees can report to other employees who act as their supervisors, forming a one-to-many relationship within the Employee table itself.
+Each store maintains an Inventory of products that are available for sale. This is represented through a one-to-many relationship between Store and Inventory, since a store can hold many products, but each inventory record belongs to one store. The Inventory table is also connected to the Product entity, which contains details about each item, such as product name, brand, SKU, unit cost, and unit price. A product can appear in the inventory of many stores, but each inventory record references only one product, creating a one-to-many relationship between Product and Inventory.
+Products are further categorized through the Category entity. Each category includes a name and description, and categories can have subcategories through a recursive relationship in the parentCategoryID field. This allows for a hierarchical classification of products. Each product belongs to one category, forming a one-to-many relationship between Category and Product. 
+Stores also interact with Suppliers through PurchaseOrders. Each store can create multiple purchase orders, but each purchase order is associated with only one store. Likewise, each purchase order is sent to one supplier, while a supplier can fulfill multiple purchase orders, forming a one-to-many relationship between Supplier and PurchaseOrder. The PurchaseOrder entity records information such as order date, expected delivery date, status, and total amount. Detailed information about each ordered product is stored in the PurchaseOrderLine table, which specifies the product, quantity, unit cost, and total cost for each item within an order. Each purchase order can have multiple order lines, but each line belongs to one purchase order.
+The SalesOrder table represents customer purchases made at a store. Each store can have many sales orders, resulting in a one-to-many relationship between Store and SalesOrder. Similarly, a Customer can place multiple orders, but each sales order is linked to one customer. Each sales order is processed by one employee, establishing a one-to-many relationship between Employee and SalesOrder.
+The SalesOrder entity also connects to the Promotion table, which stores information about active discounts or offers. Each promotion has attributes such as name, type, value, and validity period. Because a single promotion can apply to many sales orders, there is a one-to-many relationship between Promotion and SalesOrder.
+Details of individual items sold in each order are recorded in the SalesOrderLine table. Each sales order can have multiple line items, where each line specifies the product sold, quantity, unit price, and total price. A product can appear in many sales order lines, but each line belongs to one sales order, forming a one-to-many relationship between SalesOrder and SalesOrderLine.
+Payments made by customers are tracked in the Payment table. Each payment record includes information about payment type, amount paid, and date. Because a single sales order can only have one payment, there is a one-to-one relationship between SalesOrder and Payment.
+In summary, this data model represents a complete retail management system that integrates store operations, employee supervision, supplier purchasing, product management, sales transactions, promotions, and customer payments. It supports tracking the entire business process — from acquiring products from suppliers, managing store inventory, and selling to customers, to recording payments and promotions — all while maintaining clear relationships between entities across the retail network.
